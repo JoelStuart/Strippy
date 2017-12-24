@@ -402,6 +402,16 @@ function output-keylist ($finalKeyList, $listOfSanitisedFiles) {
         log outkey message "Exporting KeyList to $kf"
         $KeyOutfile = (eval-config-string $script:config.KeyListFirstline) + "`r`n" + $( $finalKeyList | Out-String )
         $KeyOutfile += "List of files using this Key:`n$( $listOfSanitisedFiles | Out-String)"
+
+        # $newout = @(); $output.Keys | sort | % {
+        #     $tmp = New-Object –TypeName PSObject
+        #     $tmp | Add-Member –MemberType NoteProperty –Name 'Name' –Value "$_`t`t`t"
+        #     $tmp | Add-Member –MemberType NoteProperty –Name 'Value' –Value $($output[$_])
+        #     $newout += $tmp
+        # }
+        # $newout
+
+
         $KeyOutfile | Out-File -Encoding ascii $kf
     } else {
         log outkey Warning "No Keys were found to show or output. There will be no key file"
