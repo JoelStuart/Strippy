@@ -114,7 +114,9 @@ param (
     # How big can a log file get before it's shuffled
     [int] $MaxLogFileSize = 10MB,
     # Max number of log files created by the script
-    [int] $LogHistory = 5
+    [int] $LogHistory = 5,
+    # Return the Keylist created by the script
+    [switch] $PassThru
 )
 
 ## Setup Log functions
@@ -1390,3 +1392,7 @@ Start-Sleep 1
 Write-Progress -Activity "Sanitising" -Id $_tp -Completed
 Clean-Up -NoExit
 log timing trace "[End] Wrap up"
+
+if ($PassThru) {
+    return $finalKeyList
+}
